@@ -14,32 +14,8 @@ All derivative work must be distributed under the same license.
 from ownTypes.location import Location
 from utils.distance import Distance
 
-default_service_weights = {
-    "children_clinic": 2,
-    "post_office": 2.5,
-    "dental_clinic": 2,
-    "restaurant": 3,
-    "playground": 3,
-    "supermarket": 5,
-    "elementary_school": 4,
-    "dog_enclosure": 0,
-    "drug_store": 3,
-    "parcel_locker": 1,
-    "bus_stop": 4,
-    "kindergarten": 2,
-    "fitness": 3,
-    "bar": 1,
-    "pub": 2,
-    "fast_food": 0,
-    "pharmacy": 4,
-    "convenience": 2,
-    "cafe": 0,
-    "general_clinic": 3,
-    "UNCATEGORIZED": 0,
-}
+from .calculateScore import getMultiplier
 from .infrastructure_classes import (
-    Building,
-    Intersection,
     Road,
     building_types,
     default_service_weights,
@@ -401,6 +377,8 @@ class CityModel:
             )
             if len(self.buildings_by_type[service]) > 1:
                 for building_i in range(1, len(self.buildings_by_type[service])):
+                    if min_dist <= 15 * 60:
+                        break
                     cur_dist = self.find_path_between_two_locations(
                         start_location,
                         self.buildings_by_type[service][building_i].location,
@@ -408,7 +386,7 @@ class CityModel:
                     )
                     if cur_dist < min_dist:
                         min_dist = cur_dist
-            total_score += min_dist * weight
+            total_score += getMultiplier(seconds=min_dist) * weight
             total_weight += weight
         return total_score / total_weight
 
