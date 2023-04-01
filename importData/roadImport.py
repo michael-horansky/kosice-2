@@ -27,6 +27,7 @@ def getNodesAndEdgesFromCity(
 def importKosiceRoads(
     nodes: GeoDataFrame, edges: GeoDataFrame, cityModel: CityModel
 ) -> Tuple[List[Intersection], List[Road]]:
+    idIntersection = 1
     intersections: Dict[int, Intersection] = {}
     roads: List[Road] = []
 
@@ -34,6 +35,8 @@ def importKosiceRoads(
         intersection: Intersection = Intersection(
             location=Location(lon=row["x"], lat=row["y"])
         )
+        intersection.id = idIntersection
+        idIntersection += 1
         intersections[osmid] = intersection
 
     maxId: int = max(intersections.keys())
@@ -48,6 +51,8 @@ def importKosiceRoads(
                 newPoint = Intersection(
                     location=Location(coordinates[0], coordinates[1])
                 )
+                newPoint.id = idIntersection
+                idIntersection += 1
                 maxId += 1
                 intersections[maxId] = newPoint
 

@@ -15,7 +15,7 @@ All derivative work must be distributed under the same license.
 
 
 # a list of the modes of transportation the model considers
-from typing import Optional
+from typing import List, Optional
 
 from ownTypes.location import Location
 
@@ -24,7 +24,8 @@ modes_of_transportation = ["walk", "cycle", "car"]
 # a list of building types
 building_types = ["residential", "convenience", "pharmacy", "jozko vajda"]
 
-default_transportation_speeds = {'walk' : 1.0, 'bike' : 6.0, 'car': 10.0} #in m/s
+default_transportation_speeds = {"walk": 1.0, "bike": 6.0, "car": 10.0}  # in m/s
+
 
 class CityObject:
 
@@ -35,34 +36,6 @@ class CityObject:
 
     def __str__(self):
         return f"City object at {self.parent_city_model.city_name}"
-
-
-class Road(CityObject):
-
-    # ---------------- constructors, destructors, descriptors ----------------------
-
-    def __init__(
-        self, parent_city_model, connected_intersections, transportation_speeds=default_transportation_speeds
-    ):
-        super(Road, self).__init__(parent_city_model)
-        self.connected_intersections = connected_intersections
-        
-        for intersection in self.connected_intersections:
-            intersection.add_road(self)
-
-        self.speeds = transportation_speeds
-
-    def __str__(self):
-        return f"Road at {self.parent_city_model.city_name} connecting positions {'; '.join([str(intersection.location) for intersection in self.connected_intersections])}"
-
-    def __repr__(self):
-        return self.__str__()
-
-    @property
-    def physical_length(self):
-        return self.connected_intersections[0].location.distance(
-            self.connected_intersections[1].location
-        )
 
 
 class Intersection(CityObject):
@@ -82,11 +55,44 @@ class Intersection(CityObject):
 
     # ---------------------- parameter-access functions ----------------------------
 
-    def add_road(self, road: Road):
+    def add_road(self, road):
         self.roads.append(road)
 
     def setId(self, id: int) -> None:
         self.id = id
+
+
+class Road(CityObject):
+
+    connected_intersections: List[Intersection]
+
+    # ---------------- constructors, destructors, descriptors ----------------------
+
+    def __init__(
+        self,
+        parent_city_model,
+        connected_intersections,
+        transportation_speeds=default_transportation_speeds,
+    ):
+        super(Road, self).__init__(parent_city_model)
+        self.connected_intersections = connected_intersections
+
+        for intersection in self.connected_intersections:
+            intersection.add_road(self)
+
+        self.speeds = transportation_speeds
+
+    def __str__(self):
+        return f"Road at {self.parent_city_model.city_name} connecting positions {'; '.join([str(intersection.location) for intersection in self.connected_intersections])}"
+
+    def __repr__(self):
+        return self.__str__()
+
+    @property
+    def physical_length(self):
+        return self.connected_intersections[0].location.distance(
+            self.connected_intersections[1].location
+        )
 
 
 class Building(CityObject):

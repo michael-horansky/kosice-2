@@ -8,3 +8,4 @@ mypy==0.971
 pandas-stubs
 osmnx
 shapely
+networkx

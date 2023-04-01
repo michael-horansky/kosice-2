@@ -12,13 +12,10 @@ def intersectionToCsvRow(intersection: Intersection) -> list:
 
 
 def intersectionsToCsv(intersections: List[Intersection]) -> None:
-    id = 1
     with open("intersections.csv", "w", newline="") as file:
         writer = csv.writer(file, delimiter=";")
         writer.writerow(["Id", "Lon", "Lat"])
         for intersection in intersections:
-            intersection.setId(id)
-            id += 1
             writer.writerow(intersectionToCsvRow(intersection=intersection))
 
 
