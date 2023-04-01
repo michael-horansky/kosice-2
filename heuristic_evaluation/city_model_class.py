@@ -13,21 +13,22 @@ All derivative work must be distributed under the same license.
 
 from ownTypes.location import Location
 
-from .infrastructure_classes import Building, Intersection, Road, building_types
+from .infrastructure_classes import Building, Intersection, Road, building_types, default_transportation_speeds
 
-def N_max_elements(list1, N, eval_function = lambda x: x): 
+def N_max_elements(list1, N, eval_function = lambda x: x):
+    init_list = list1.copy()
     final_list = [] 
   
     for i in range(0, N): 
-        max1 = eval_function(list1[0])
+        max1 = eval_function(init_list[0])
         index1 = 0
           
-        for j in range(1, len(list1)):
-            if eval_function(list1[j]) > max1: 
-                max1 = eval_function(list1[j])
+        for j in range(1, len(init_list)):
+            if eval_function(init_list[j]) > max1: 
+                max1 = eval_function(init_list[j])
                 index1 = j
                   
-        final_list.append(list1.pop(index1)) 
+        final_list.append(init_list.pop(index1)) 
           
     return(final_list)
 
@@ -37,7 +38,7 @@ class CityModel:
 
     # ---------------- constructors, destructors, descriptors ----------------------
 
-    def __init__(self, city_name="Kosice"):
+    def __init__(self, city_name="Kosice", direct_path_treshold = 20.0):
 
         self.intersections = []
         self.roads = []
@@ -45,6 +46,7 @@ class CityModel:
         self.buildings_by_type = {service: [] for service in building_types}
 
         self.city_name = "Kosice"
+        self.direct_path_treshold = direct_path_treshold #if a distance between two locations is smaller than this, you can leg it directly
 
     def __str__(self):
         return ""
@@ -73,13 +75,13 @@ class CityModel:
     # ------------------------ path-finding functions ------------------------------
     
     def find_distance_to_nearest_road(self, start_location):
-        # returns a tuple (distance to nearest road, nearest_road, distance along the road from its first connected intersection)
+        # returns a tuple (nearest_road, distance to nearest road, distance along the road from its first connected intersection)
         #N_closest_intersections_checked = 3
         #closest_intersections = N_max_elements(self.intersections, N_closest_intersections_checked, eval_function = lambda x: )
-        closest_road = N_max_elements(self.roads, 1, eval_function = lambda x: - start_location.distance_from_road(x)[0])
-        print(closest_road)
+        nearest_road = N_max_elements(self.roads, 1, eval_function = lambda x: - start_location.distance_from_road(x)[0])[0]
+        return(nearest_road, *start_location.distance_from_road(nearest_road))
     
-    def shortest_path_between_intersections(self, start_intersection, end_intersection, mode_of_transportation):
+    def shortest_path_between_intersections(self, start_intersection, end_intersections, mode_of_transportation):
         
         def get_neighbour(intersection, road):
             if road.connected_intersections[0] == intersection:
@@ -88,13 +90,25 @@ class CityModel:
                 return(road.connected_intersections[0])
         
         # d-d-d-dijkstra
+        if type(end_intersections) != list:
+            end_intersections = [end_intersections]
+        unvisited_end_intersections = end_intersections.copy()
+        end_intersections_distances = {}
+        
         unvisited_nodes = self.intersections.copy()
         tentative_distances = {start_intersection : 0.0}
         current_node = start_intersection
         while(True):
-            if current_node == end_intersection:
-                return(tentative_distances[current_node])
+            if current_node in unvisited_end_intersections:
+                unvisited_end_intersections.remove(current_node)
+                end_intersections_distances[current_node] = tentative_distances[current_node]
+                if len(unvisited_end_intersections) <= 0:
+                    return(end_intersections_distances)
+                #return(tentative_distances[current_node])
             for i in range(len(current_node.roads)):
+                # check if road is traversable with this mode of transportation
+                if current_node.roads[i].speeds[mode_of_transportation] == -1:
+                    continue
                 target_node = get_neighbour(current_node, current_node.roads[i])
                 new_tentative_dist = tentative_distances[current_node] + current_node.roads[i].physical_length / current_node.roads[i].speeds[mode_of_transportation]
                 if target_node in tentative_distances.keys():
@@ -125,6 +139,26 @@ class CityModel:
                     current_smallest_unvisited_tentative_distance = tentative_distances[considered_node]
                     current_closest_node = considered_node
             current_node = current_closest_node
+    
+    def find_path_between_two_locations(self, start_location, end_location, mode_of_transportation, walk_speed = default_transportation_speeds['walk']):
+        # check if you should just leg it, mate
+        if start_location.distance(end_location) < self.direct_path_treshold:
+            return(start_location.distance(end_location))
+        start_nearest_road, start_distance_to_road, start_road_offset = self.find_distance_to_nearest_road(start_location)
+        end_nearest_road  , end_distance_to_road  , end_road_offset   = self.find_distance_to_nearest_road(end_location  )
+        
+        distances_from_first_start_intersection = self.shortest_path_between_intersections(
+            start_nearest_road.connected_intersections[0], end_nearest_road.connected_intersections, mode_of_transportation)
+        distances_from_second_start_intersection = self.shortest_path_between_intersections(
+            start_nearest_road.connected_intersections[1], end_nearest_road.connected_intersections, mode_of_transportation)
+        walking_part = (start_distance_to_road + end_distance_to_road) / walk_speed
+        d1_1 = walking_part + (start_road_offset / start_nearest_road.speeds[mode_of_transportation]) + (end_road_offset / end_nearest_road.speeds[mode_of_transportation]) + distances_from_first_start_intersection[end_nearest_road.connected_intersections[0]]
+        d1_2 = walking_part + (start_road_offset / start_nearest_road.speeds[mode_of_transportation]) + ((end_nearest_road.physical_length - end_road_offset) / end_nearest_road.speeds[mode_of_transportation]) + distances_from_first_start_intersection[end_nearest_road.connected_intersections[1]]
+        d2_1 = walking_part + ((start_nearest_road.physical_length - start_road_offset) / start_nearest_road.speeds[mode_of_transportation]) + (end_road_offset / end_nearest_road.speeds[mode_of_transportation]) + distances_from_second_start_intersection[end_nearest_road.connected_intersections[0]]
+        d2_2 = walking_part + ((start_nearest_road.physical_length - start_road_offset) / start_nearest_road.speeds[mode_of_transportation]) + ((end_nearest_road.physical_length - end_road_offset) / end_nearest_road.speeds[mode_of_transportation]) + distances_from_second_start_intersection[end_nearest_road.connected_intersections[1]]
+        
+        return(min([d1_1, d1_2, d2_1, d2_2]))
+        
         
                     
             
