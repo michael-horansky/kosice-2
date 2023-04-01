@@ -35,6 +35,7 @@ class Location():
     
     def distance_from_great_arc(self, loc1, loc2):
         # smallest distance between self and a great arc given by loc1 and loc2
+        # returns (distance from arc, distance along arc from the first location, whether the shortest distance lies between the two locations)
         x, y, z = self.absolute_position
         x1, y1, z1 = loc1.absolute_position
         x2, y2, z2 = loc2.absolute_position
@@ -47,23 +48,34 @@ class Location():
         Q_cross_R_y /= size_Q_cross_R
         Q_cross_R_z /= size_Q_cross_R
         
-        P_dot_Q_cross_R = x * Q_cross_R_x + y * Q_cross_R_y + z * Q_cross_R_z
+        P_dot_Q_cross_R = np.abs(x * Q_cross_R_x + y * Q_cross_R_y + z * Q_cross_R_z)
         pos_on_road_x = x - P_dot_Q_cross_R * Q_cross_R_x
         pos_on_road_y = y - P_dot_Q_cross_R * Q_cross_R_y
         pos_on_road_z = z - P_dot_Q_cross_R * Q_cross_R_z
+        
+        d1_x, d1_y, d1_z = pos_on_road_x - x1, pos_on_road_y - y1, pos_on_road_z - z1
+        d2_x, d2_y, d2_z = x2 - pos_on_road_x, y2 - pos_on_road_y, z2 - pos_on_road_z
+        
+        if d1_x * d2_x + d1_y * d2_y + d1_z * d2_z > 0:
+            shortest_distance_lies_on_arc = True
+        else:
+            shortest_distance_lies_on_arc = False
+        
         distance_along_road = np.sqrt((x1 - pos_on_road_x) * (x1 - pos_on_road_x) + (y1 - pos_on_road_y) * (y1 - pos_on_road_y) + (z1 - pos_on_road_z) * (z1 - pos_on_road_z))
-        return(P_dot_Q_cross_R, distance_along_road) # also return the distance along the arc mate
+        return(P_dot_Q_cross_R, distance_along_road, shortest_distance_lies_on_arc)
     
     def distance_from_road(self, road):
-        distance_from_road_arc, distance_along_road = self.distance_from_great_arc(road.connected_intersections[0].location, road.connected_intersections[1].location)
+        distance_from_road_arc, distance_along_road, use_arc = self.distance_from_great_arc(road.connected_intersections[0].location, road.connected_intersections[1].location)
         distance_from_first_intersection = self.distance(road.connected_intersections[0].location)
         distance_from_second_intersection = self.distance(road.connected_intersections[1].location)
-        if distance_from_first_intersection < distance_from_road_arc and distance_from_first_intersection < distance_from_second_intersection:
-            return (distance_from_first_intersection, 0.0)
-        elif distance_from_second_intersection < distance_from_road_arc and distance_from_second_intersection < distance_from_first_intersection:
-            return (distance_from_second_intersection, road.physical_length)
-        else:
+        
+        if use_arc:
             return(distance_from_road_arc, distance_along_road)
+        else:
+            if distance_from_first_intersection < distance_from_second_intersection:
+                return (distance_from_first_intersection, 0.0)
+            elif distance_from_second_intersection < distance_from_first_intersection:
+                return (distance_from_second_intersection, road.physical_length)
         
         
         
