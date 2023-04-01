@@ -10,7 +10,7 @@ def importBuildings(inputFile: str) -> list[Building]:
 
     for _, row in buildings.iterrows():
         building: Building = Building(
-            location=Location(x=row["x"], y=row["y"]),
+            location=Location(lon=row["x"], lat=row["y"]),
             service=row["typ_0"],
             surface_area=None,
             parameters=None,

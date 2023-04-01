@@ -1,26 +1,31 @@
 from typing import Dict, List, Tuple
 
 import osmnx as ox
+from geopandas import GeoDataFrame
 from shapely.coords import CoordinateSequence
 from shapely.geometry.linestring import LineString
-from shapely.wkt import loads
 
 from heuristic_evaluation.city_model_class import CityModel
 from heuristic_evaluation.infrastructure_classes import Intersection, Road
 from ownTypes.location import Location
 
 
-def importKosiceRoads(cityModel: CityModel) -> Tuple[List[Intersection], List[Road]]:
-    place_name = "Košice, Slovakia"
-    graph = ox.graph_from_place(place_name, network_type="drive")
-    nodes, edges = ox.graph_to_gdfs(graph)
+def getNodesAndEdgesFromCity(
+    placeName: str = "Košice, Slovakia",
+) -> Tuple[GeoDataFrame, GeoDataFrame]:
+    graph = ox.graph_from_place(placeName, network_type="drive")
+    return ox.graph_to_gdfs(graph)
 
+
+def importKosiceRoads(
+    nodes: GeoDataFrame, edges: GeoDataFrame, cityModel: CityModel
+) -> Tuple[List[Intersection], List[Road]]:
     intersections: Dict[int, Intersection] = {}
     roads: List[Road] = []
 
     for osmid, row in nodes.iterrows():
         intersection: Intersection = Intersection(
-            location=Location(x=row["x"], y=row["y"])
+            location=Location(lon=row["x"], lat=row["y"])
         )
         intersections[osmid] = intersection
 
