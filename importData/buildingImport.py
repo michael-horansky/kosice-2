@@ -1,6 +1,7 @@
 import pandas as pd
 
 from heuristic_evaluation.infrastructure_classes import Building
+from ownTypes.location import Location
 
 
 def importBuildings(inputFile: str) -> list[Building]:
@@ -9,7 +10,7 @@ def importBuildings(inputFile: str) -> list[Building]:
 
     for _, row in buildings.iterrows():
         building: Building = Building(
-            location=(row["x"], row["y"]),
+            location=Location(x=row["x"], y=row["y"]),
             service=row["typ_0"],
             surface_area=None,
             parameters=None,
