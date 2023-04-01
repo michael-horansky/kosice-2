@@ -1,0 +1,5 @@
+[flake8]
+max-line-length = 99
+extend-ignore = E203
+exclude = stubs, config.py, tests/mocks/mockXGBoost.py
+max-function-length=50
