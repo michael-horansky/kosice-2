@@ -15,6 +15,8 @@ All derivative work must be distributed under the same license.
 
 
 # a list of the modes of transportation the model considers
+from typing import Optional
+
 from ownTypes.location import Location
 
 modes_of_transportation = ["walk", "cycle", "car"]
@@ -48,13 +50,17 @@ class Road(CityObject):
 
     def __str__(self):
         return f"Road at {self.parent_city_model.city_name} connecting positions {'; '.join([str(intersection.location) for intersection in self.connected_intersections])}"
-    
+
     @property
     def physical_length(self):
-        return(self.connected_intersections[0].location.distance(self.connected_intersections[1].location))
+        return self.connected_intersections[0].location.distance(
+            self.connected_intersections[1].location
+        )
 
 
 class Intersection(CityObject):
+
+    id: Optional[int]
 
     """
     location: Location
@@ -65,11 +71,15 @@ class Intersection(CityObject):
     def __init__(self, location: Location):
         self.location = location
         self.roads = []
+        self.id = None
 
     # ---------------------- parameter-access functions ----------------------------
 
     def add_road(self, road: Road):
         self.roads.append(road)
+
+    def setId(self, id: int) -> None:
+        self.id = id
 
 
 class Building(CityObject):

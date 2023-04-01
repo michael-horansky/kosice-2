@@ -1,11 +1,13 @@
+from typing import List
+
 import pandas as pd
 
 from heuristic_evaluation.infrastructure_classes import Building
 from ownTypes.location import Location
 
 
-def importBuildings(inputFile: str) -> list[Building]:
-    result: list[Building] = []
+def importBuildings(inputFile: str) -> List[Building]:
+    result: List[Building] = []
     buildings: pd.DataFrame = pd.read_csv(filepath_or_buffer=inputFile)
 
     for _, row in buildings.iterrows():
