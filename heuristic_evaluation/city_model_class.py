@@ -14,8 +14,6 @@ All derivative work must be distributed under the same license.
 from ownTypes.location import Location
 from utils.distance import Distance
 
-from .infrastructure_classes import Road, building_types, default_transportation_speeds
-
 default_service_weights = {
     "children_clinic": 2,
     "post_office": 2.5,
@@ -39,6 +37,14 @@ default_service_weights = {
     "general_clinic": 3,
     "UNCATEGORIZED": 0,
 }
+from .infrastructure_classes import (
+    Building,
+    Intersection,
+    Road,
+    building_types,
+    default_service_weights,
+    default_transportation_speeds,
+)
 
 
 def N_max_elements(list1, N, eval_function=lambda x: x):
@@ -115,6 +121,7 @@ class CityModel:
     # ------------------------ path-finding functions ------------------------------
 
     def find_distance_to_nearest_road(self, start_location):
+        print("si sa ojebal")
         # returns a tuple (nearest_road, distance to nearest road, distance along the road from its first connected intersection)
         # N_closest_intersections_checked = 3
         # closest_intersections = N_max_elements(self.intersections, N_closest_intersections_checked, eval_function = lambda x: )
@@ -298,11 +305,6 @@ class CityModel:
 
         return min([d1_1, d1_2, d2_1, d2_2])
 
-    def find_score_of_location(
-        self, start_location, service_weights=default_service_weights
-    ):
-        print("si sa ojebal")
-
     def find_path_between_two_locations(
         self,
         start_location: Location,
@@ -373,4 +375,40 @@ class CityModel:
         )
 
         return min([d1_1, d1_2, d2_1, d2_2])
+
+    def find_score_of_location(
+        self,
+        start_location,
+        mode_of_transportation,
+        service_weights=default_service_weights,
+    ):
+
+        total_score = 0.0
+        total_weight = 0.0
+        for service, weight in service_weights.items():
+            if service == "UNCATEGORIZED":
+                continue
+            if service not in self.buildings_by_type.keys():
+                print(f"We don't recognize {service}")
+                continue
+            if len(self.buildings_by_type[service]) == 0:
+                print(f"We don't have any facility providing {service}")
+                continue
+            min_dist = self.find_path_between_two_locations(
+                start_location,
+                self.buildings_by_type[service][0].location,
+                mode_of_transportation,
+            )
+            if len(self.buildings_by_type[service]) > 1:
+                for building_i in range(1, len(self.buildings_by_type[service])):
+                    cur_dist = self.find_path_between_two_locations(
+                        start_location,
+                        self.buildings_by_type[service][building_i].location,
+                        mode_of_transportation,
+                    )
+                    if cur_dist < min_dist:
+                        min_dist = cur_dist
+            total_score += min_dist * weight
+            total_weight += weight
+        return total_score / total_weight
 
