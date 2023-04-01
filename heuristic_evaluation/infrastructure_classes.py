@@ -22,10 +22,32 @@ from ownTypes.location import Location
 modes_of_transportation = ["walk", "cycle", "car"]
 
 # a list of building types
-default_service_weights = {'children_clinic' : 2, 'post_office' : 2.5, 'dental_clinic' : 2, 'restaurant' : 3, 'playground' : 3, 'supermarket' : 5,
-                           'elementary_school' : 4, 'dog_enclosure' : 0, 'drug_store' : 3, 'parcel_locker' : 1, 'bus_stop' : 4, 'kindergarten' : 2, 'fitness' : 3,
-                           'bar' : 1, 'pub' : 2, 'fast_food' : 0, 'pharmacy' : 4, 'convenience' : 2, 'cafe' : 0, 'general_clinic' : 3, 'UNCATEGORIZED' : 0}
-building_types = list(default_service_weights.keys())[:-1] + ['residential']#["residential", "convenience", "pharmacy", "jozko vajda"]
+default_service_weights = {
+    "children_clinic": 2,
+    "post_office": 2.5,
+    "dental_clinic": 2,
+    "restaurant": 3,
+    "playground": 3,
+    "supermarket": 5,
+    "elementary_school": 4,
+    "dog_enclosure": 0,
+    "drug_store": 3,
+    "parcel_locker": 1,
+    "bus_stop": 4,
+    "kindergarten": 2,
+    "fitness": 3,
+    "bar": 1,
+    "pub": 2,
+    "fast_food": 0,
+    "pharmacy": 4,
+    "convenience": 2,
+    "cafe": 0,
+    "general_clinic": 3,
+    "UNCATEGORIZED": 0,
+}
+building_types = list(default_service_weights.keys())[:-1] + [
+    "residential"
+]  # ["residential", "convenience", "pharmacy", "jozko vajda"]
 
 default_transportation_speeds = {"walk": 1.0, "bike": 6.0, "car": 10.0}  # in m/s
 

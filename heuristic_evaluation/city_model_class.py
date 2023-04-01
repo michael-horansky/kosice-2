@@ -11,11 +11,14 @@ It may be used, modified, shared, or built upon.
 All derivative work must be distributed under the same license.
 """
 
+from typing import Dict, List
+
 from ownTypes.location import Location
 from utils.distance import Distance
 
-from .calculateScore import getMultiplier
+from .calculateScore import MAX_HALF_SCORE, getMultiplier
 from .infrastructure_classes import (
+    Building,
     Road,
     building_types,
     default_service_weights,
@@ -46,6 +49,7 @@ class CityModel:
     # buildings: list[Building]
 
     distance: Distance
+    buildings_by_type: Dict[str, List[Building]]
 
     # ---------------- constructors, destructors, descriptors ----------------------
 
@@ -377,6 +381,14 @@ class CityModel:
             )
             if len(self.buildings_by_type[service]) > 1:
                 for building_i in range(1, len(self.buildings_by_type[service])):
+                    if (
+                        self.buildings_by_type[service][building_i].location.distance(
+                            start_location
+                        )
+                        / default_transportation_speeds[mode_of_transportation]
+                        > MAX_HALF_SCORE
+                    ):
+                        continue
                     if min_dist <= 15 * 60:
                         break
                     cur_dist = self.find_path_between_two_locations(
