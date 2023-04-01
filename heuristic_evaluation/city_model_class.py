@@ -38,7 +38,7 @@ class CityModel:
 
     # ---------------- constructors, destructors, descriptors ----------------------
 
-    def __init__(self, city_name="Kosice", direct_path_treshold = 20.0):
+    def __init__(self, city_name="Kosice", direct_path_treshold = 20.0, largest_interesting_time_distance = 25.0 * 60.0):
 
         self.intersections = []
         self.roads = []
@@ -47,6 +47,7 @@ class CityModel:
 
         self.city_name = "Kosice"
         self.direct_path_treshold = direct_path_treshold #if a distance between two locations is smaller than this, you can leg it directly
+        self.largest_interesting_time_distance = largest_interesting_time_distance # if a distance is bigger than this, just forget it
 
     def __str__(self):
         return ""
@@ -111,6 +112,9 @@ class CityModel:
                     continue
                 target_node = get_neighbour(current_node, current_node.roads[i])
                 new_tentative_dist = tentative_distances[current_node] + current_node.roads[i].physical_length / current_node.roads[i].speeds[mode_of_transportation]
+                # a distance bigger than a certain number is treated as infinity
+                if new_tentative_dist > self.largest_interesting_time_distance:
+                    continue
                 if target_node in tentative_distances.keys():
                     if tentative_distances[target_node] < new_tentative_dist:
                         continue
