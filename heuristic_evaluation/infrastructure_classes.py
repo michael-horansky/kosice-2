@@ -51,6 +51,9 @@ class Road(CityObject):
     def __str__(self):
         return f"Road at {self.parent_city_model.city_name} connecting positions {'; '.join([str(intersection.location) for intersection in self.connected_intersections])}"
 
+    def __repr__(self):
+        return self.__str__()
+
     @property
     def physical_length(self):
         return self.connected_intersections[0].location.distance(

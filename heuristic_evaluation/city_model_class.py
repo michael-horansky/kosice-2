@@ -15,6 +15,21 @@ from ownTypes.location import Location
 
 from .infrastructure_classes import Building, Intersection, Road, building_types
 
+def N_max_elements(list1, N, eval_function = lambda x: x): 
+    final_list = [] 
+  
+    for i in range(0, N): 
+        max1 = eval_function(list1[0])
+        index1 = 0
+          
+        for j in range(1, len(list1)):
+            if eval_function(list1[j]) > max1: 
+                max1 = eval_function(list1[j])
+                index1 = j
+                  
+        final_list.append(list1.pop(index1)) 
+          
+    return(final_list)
 
 class CityModel:
 
@@ -59,4 +74,7 @@ class CityModel:
     
     def find_distance_to_nearest_road(self, start_location):
         # returns a tuple (distance to nearest road, nearest_road, distance along the road from its first connected intersection)
-        N_closest_intersections_checked = 3
+        #N_closest_intersections_checked = 3
+        #closest_intersections = N_max_elements(self.intersections, N_closest_intersections_checked, eval_function = lambda x: )
+        closest_road = N_max_elements(self.roads, 1, eval_function = lambda x: - start_location.distance_from_road(x)[0])
+        print(closest_road)
