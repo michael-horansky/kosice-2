@@ -10,6 +10,13 @@ from heuristic_evaluation.infrastructure_classes import Intersection, Road
 from ownTypes.location import Location
 
 
+def addRoadToRoads(
+    begin: Intersection, end: Intersection, roads: List[Road], cityModel: CityModel
+) -> None:
+    road = Road(parent_city_model=cityModel, connected_intersections=[begin, end])
+    roads.append(road)
+
+
 def getNodesAndEdgesFromCity(
     placeName: str = "Košice, Slovakia",
 ) -> Tuple[GeoDataFrame, GeoDataFrame]:
@@ -44,27 +51,15 @@ def importKosiceRoads(
                 maxId += 1
                 intersections[maxId] = newPoint
 
-                road = Road(
-                    parent_city_model=cityModel,
-                    connected_intersections=[begin, newPoint],
-                )
-                roads.append(road)
+                addRoadToRoads(begin, newPoint, roads, cityModel)
 
                 begin = newPoint
 
             intersectionEnd = intersections[index[1]]
-            road = Road(
-                parent_city_model=cityModel,
-                connected_intersections=[begin, intersectionEnd],
-            )
-            roads.append(road)
+            addRoadToRoads(begin, intersectionEnd, roads, cityModel)
         else:
             intersectionBegin = intersections[index[0]]
             intersectionEnd = intersections[index[1]]
-            road = Road(
-                parent_city_model=cityModel,
-                connected_intersections=[intersectionBegin, intersectionEnd],
-            )
-            roads.append(road)
+            addRoadToRoads(intersectionBegin, intersectionEnd, roads, cityModel)
 
     return (list(intersections.values()), roads)
