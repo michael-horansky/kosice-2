@@ -20,17 +20,32 @@ modes_of_transportation = ['walk', 'cycle', 'car']
 # a list of building types
 building_types = ['residential', 'convenience', 'pharmacy', 'jozko vajda']
 
-class Road():
+class CityObject():
     
     # ---------------- constructors, destructors, descriptors ----------------------
     
-    def __init__(self, connected_intersections, transportation_lengths = {}):
+    def __init__(self, parent_city_model):
+        self.parent_city_model = parent_city_model
+    
+    def __str__(self):
+        return(f"City object at {self.parent_city_model.city_name}")
+
+
+class Road(CityObject):
+    
+    # ---------------- constructors, destructors, descriptors ----------------------
+    
+    def __init__(self, parent_city_model, connected_intersections, transportation_lengths = {}):
+        super(Road, self).__init__(parent_city_model)
         self.connected_intersections = connected_intersections
         
         self.lengths = transportation_lengths
+    
+    def __str__(self):
+        return(f"Road at {self.parent_city_model.city_name} connecting positions {'; '.join([str(intersection.location) for intersection in self.connected_intersections])}")
 
 
-class Intersection():
+class Intersection(CityObject):
     
     # ---------------- constructors, destructors, descriptors ----------------------
     
@@ -46,7 +61,7 @@ class Intersection():
         self.roads.append(road)
 
 
-class Building():
+class Building(CityObject):
     
     # ---------------- constructors, destructors, descriptors ----------------------
     
