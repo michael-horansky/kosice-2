@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "2hLPmh4demZ2v/RPBhPH541l2CQgmWssNtbf2OvDOnzm4rT3TBdJ+ubxoC8xa23B50i+bAjgxmKtkkhuLQBdPg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\swisi\\source\\repos\\kosice-2\\Kosice\\Kosice.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\swisi\\.nuget\\packages\\csvhelper\\30.0.1\\csvhelper.30.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}
