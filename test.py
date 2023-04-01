@@ -2,9 +2,9 @@ from heuristic_evaluation.city_model_class import *
 
 
 kosice = CityModel()
-kosice.add_intersection(Location(21.238454903302088, 48.69470206219284)) # OC optima
-kosice.add_intersection(Location(21.263561595515494, 48.69767209785608)) #kongres hotel
-kosice.add_intersection(Location(21.24140179948478, 48.68645709734484)) #EMELS
+kosice.add_intersection(Intersection(Location(21.238454903302088, 48.69470206219284))) # OC optima
+kosice.add_intersection(Intersection(Location(21.263561595515494, 48.69767209785608))) #kongres hotel
+kosice.add_intersection(Intersection(Location(21.24140179948478, 48.68645709734484))) #EMELS
 kosice.add_road([kosice.intersections[0], kosice.intersections[1]])
 kosice.add_road([kosice.intersections[0], kosice.intersections[2]])
 

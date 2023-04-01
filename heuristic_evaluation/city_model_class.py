@@ -53,9 +53,9 @@ class CityModel:
 
     # ---------------------- parameter-access functions ----------------------------
 
-    def add_intersection(self, position: Location):
+    def add_intersection(self, new_intersection):
 
-        self.intersections.append(Intersection(position))
+        self.intersections.append(new_intersection)
 
     def add_road(self, intersections):
         new_road = Road(self, intersections)
