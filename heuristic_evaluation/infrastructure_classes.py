@@ -24,6 +24,7 @@ modes_of_transportation = ["walk", "cycle", "car"]
 # a list of building types
 building_types = ["residential", "convenience", "pharmacy", "jozko vajda"]
 
+default_transportation_speeds = {'walk' : 1.0, 'bike' : 6.0, 'car': 10.0} #in m/s
 
 class CityObject:
 
@@ -41,12 +42,15 @@ class Road(CityObject):
     # ---------------- constructors, destructors, descriptors ----------------------
 
     def __init__(
-        self, parent_city_model, connected_intersections, transportation_lengths={}
+        self, parent_city_model, connected_intersections, transportation_speeds=default_transportation_speeds
     ):
         super(Road, self).__init__(parent_city_model)
         self.connected_intersections = connected_intersections
+        
+        for intersection in self.connected_intersections:
+            intersection.add_road(self)
 
-        self.lengths = transportation_lengths
+        self.speeds = transportation_speeds
 
     def __str__(self):
         return f"Road at {self.parent_city_model.city_name} connecting positions {'; '.join([str(intersection.location) for intersection in self.connected_intersections])}"

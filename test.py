@@ -18,3 +18,23 @@ print(stl_sun.distance_from_road(kosice.roads[1]))
 print("--------------------------------------------")
 kosice.find_distance_to_nearest_road(futbal)
 kosice.find_distance_to_nearest_road(stl_sun)
+
+print("--------------------------------------------")
+print(kosice.shortest_path_between_intersections(kosice.intersections[1], kosice.intersections[2], 'walk'))
+
+bepis = CityModel()
+bepis.add_intersection(Location(0.0, 0.0))
+bepis.add_intersection(Location(1.0, 0.0))
+bepis.add_intersection(Location(0.0, 10.0))
+bepis.add_intersection(Location(0.3, 0.0))
+bepis.add_intersection(Location(0.6, 0.0))
+
+bepis.add_road([bepis.intersections[0], bepis.intersections[2]])
+bepis.add_road([bepis.intersections[2], bepis.intersections[1]])
+print("BEPIS", bepis.shortest_path_between_intersections(bepis.intersections[0], bepis.intersections[1], 'walk'))
+
+bepis.add_road([bepis.intersections[0], bepis.intersections[3]])
+bepis.add_road([bepis.intersections[3], bepis.intersections[4]])
+bepis.add_road([bepis.intersections[4], bepis.intersections[1]])
+print("BEPIS", bepis.shortest_path_between_intersections(bepis.intersections[0], bepis.intersections[1], 'walk'))
+
