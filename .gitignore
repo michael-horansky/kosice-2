@@ -1,0 +1,9 @@
+# ignore python cache files
+__pycache__/
+# ignore C/C++ cache files
+*.o
+# we also ignore all latex byproduct files
+*.aux
+*.log
+*.out
+*.gz
