@@ -18,7 +18,7 @@ from .infrastructure_classes import Building, Intersection, Road, building_types
 
 class CityModel:
 
-    buildings: list[Building]
+    #buildings: list[Building]
 
     # ---------------- constructors, destructors, descriptors ----------------------
 
@@ -56,5 +56,7 @@ class CityModel:
             return -1
 
     # ------------------------ path-finding functions ------------------------------
-
-    # def find_
+    
+    def find_distance_to_nearest_road(self, start_location):
+        # returns a tuple (distance to nearest road, nearest_road, distance along the road from its first connected intersection)
+        N_closest_intersections_checked = 3
