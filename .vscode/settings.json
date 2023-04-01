@@ -1,0 +1,23 @@
+{
+  "editor.formatOnSave": true,
+  "python.linting.flake8Enabled": true,
+  "python.linting.mypyEnabled": true,
+  "python.linting.lintOnSave": true,
+  "python.formatting.provider": "black",
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true
+  },
+  "python.linting.mypyArgs": [
+    "--show-column-numbers",
+    "--no-pretty"
+  ],
+  "python.testing.unittestArgs": [
+    "-v",
+    "-s",
+    "./tests",
+    "-p",
+    "test*.py"
+  ],
+  "python.testing.pytestEnabled": false,
+  "python.testing.unittestEnabled": true
+}

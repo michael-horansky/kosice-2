@@ -1,0 +1,8 @@
+pandas==1.5.3
+flake8==5.0.4
+flake8-functions==0.0.7
+flake8-eradicate==1.4.0
+flake8-alfred==1.1.1
+flake8-warnings==0.4.0
+mypy==0.971
+pandas-stubs==1.4.4.220912
