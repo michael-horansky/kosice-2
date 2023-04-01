@@ -48,13 +48,17 @@ class Road(CityObject):
 
     def __str__(self):
         return f"Road at {self.parent_city_model.city_name} connecting positions {'; '.join([str(intersection.location) for intersection in self.connected_intersections])}"
+    
+    def get_physical_length(self):
+        return(self.connected_intersections[0].location.distance(self.connected_intersections[1].location))
 
 
 class Intersection(CityObject):
 
+    """
     location: Location
     roads: list[Road]
-
+    """
     # ---------------- constructors, destructors, descriptors ----------------------
 
     def __init__(self, location: Location):

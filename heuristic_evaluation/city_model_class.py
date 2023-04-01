@@ -18,7 +18,7 @@ from .infrastructure_classes import Building, Intersection, Road, building_types
 
 class CityModel:
 
-    buildings: list[Building]
+    #buildings: list[Building]
 
     # ---------------- constructors, destructors, descriptors ----------------------
 
