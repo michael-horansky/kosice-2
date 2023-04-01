@@ -15,6 +15,10 @@ from ownTypes.location import Location
 
 from .infrastructure_classes import Building, Intersection, Road, building_types, default_transportation_speeds
 
+default_service_weights = {'children_clinic' : 2, 'post_office' : 2.5, 'dental_clinic' : 2, 'restaurant' : 3, 'playground' : 3, 'supermarket' : 5,
+                           'elementary_school' : 4, 'dog_enclosure' : 0, 'drug_store' : 3, 'parcel_locker' : 1, 'bus_stop' : 4, 'kindergarten' : 2, 'fitness' : 3,
+                           'bar' : 1, 'pub' : 2, 'fast_food' : 0, 'pharmacy' : 4, 'convenience' : 2, 'cafe' : 0, 'general_clinic' : 3, 'UNCATEGORIZED' : 0}
+
 def N_max_elements(list1, N, eval_function = lambda x: x):
     init_list = list1.copy()
     final_list = [] 
@@ -162,6 +166,9 @@ class CityModel:
         d2_2 = walking_part + ((start_nearest_road.physical_length - start_road_offset) / start_nearest_road.speeds[mode_of_transportation]) + ((end_nearest_road.physical_length - end_road_offset) / end_nearest_road.speeds[mode_of_transportation]) + distances_from_second_start_intersection[end_nearest_road.connected_intersections[1]]
         
         return(min([d1_1, d1_2, d2_1, d2_2]))
+    
+    def find_score_of_location(self, start_location, service_weights = default_service_weights):
+        print("si sa ojebal")
         
         
                     
