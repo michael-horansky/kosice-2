@@ -2,6 +2,8 @@
 __pycache__/
 # ignore C/C++ cache files
 *.o
+# ignore datafiles
+*.csv
 # we also ignore all latex byproduct files
 *.aux
 *.log
