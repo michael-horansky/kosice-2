@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Kosice.Model;
+using Kosice.Model.Enums;
 
 namespace Kosice.Utils
 {
@@ -170,7 +171,7 @@ namespace Kosice.Utils
         }
 
 
-        public double FindScoreOfLocation(ObjectOnCoordinates StartLocation, string ModeOfTransportation)
+        public double FindScoreOfLocation(ObjectOnCoordinates StartLocation, string ModeOfTransportation = "walk")
         {
             double TotalScore = 0.0;
             double TotalWeight = 0.0;
@@ -178,11 +179,30 @@ namespace Kosice.Utils
             var BuildingTypes = Enum.GetValues(typeof(BuildingType)).Cast<BuildingType>();
             foreach (var BuildingTypeV in BuildingTypes)
             {
-                // Najdi vsetky budovy daneho typu
-                // Iterovat cez vsetky a zistovat najkratsiu vzdialenost
-                // (ak je menej ako 15 minut, rovno skoncit, ak je vzdusnou ciarou viac ako 30 tak tiez koniec)
-                // pre najkratsiu vzdialenost (sekundy) zistit multiplier cez GetMultiplier
-                // zatial bez weight
+                List<Building> BuildingOfGivenType = BuildingMngr.Buildings.FindAll(b => b.BuildType == BuildingTypeV);
+                double MinDist = Double.MaxValue;
+                if (BuildingOfGivenType.Count() > 1)
+                {
+                    foreach (Building BuildingCur in BuildingOfGivenType)
+                    {
+                        if (StartLocation.DistanceToOtherLocation(BuildingCur) / DefaultTransportationSpeeds[ModeOfTransportation] > 20*60)
+                        {
+                            continue;
+                        }
+                        if (MinDist <= 15*60)
+                        {
+                            break;
+                        }
+                        double CurDist = FindPathBetweenTwoLocations(StartLocation, BuildingCur, ModeOfTransportation);
+                        if (CurDist < MinDist)
+                        {
+                            MinDist = CurDist;
+                        }
+                    }
+                }
+
+                TotalScore += GetMultiplier(MinDist);
+                TotalWeight++;
             }
 
             return TotalScore / TotalWeight;
