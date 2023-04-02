@@ -185,6 +185,10 @@ namespace Kosice.Utils
                 {
                     foreach (Building BuildingCur in BuildingOfGivenType)
                     {
+                        if (StartLocation.DistanceToOtherLocation(BuildingCur) / DefaultTransportationSpeeds[ModeOfTransportation] > 20*60)
+                        {
+                            continue;
+                        }
                         if (MinDist <= 15*60)
                         {
                             break;
