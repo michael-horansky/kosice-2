@@ -154,5 +154,38 @@ namespace Kosice.Utils
 
             return min;
         }
+
+        public double GetMultiplier(double seconds)
+        {
+            if (seconds <= 15 * 60)
+            {
+                return 1;
+            }
+            else if (seconds <= 20 * 60)
+            {
+                return 0.5;
+            }
+
+            return 0;
+        }
+
+
+        public double FindScoreOfLocation(ObjectOnCoordinates StartLocation, string ModeOfTransportation)
+        {
+            double TotalScore = 0.0;
+            double TotalWeight = 0.0;
+
+            var BuildingTypes = Enum.GetValues(typeof(BuildingType)).Cast<BuildingType>();
+            foreach (var BuildingTypeV in BuildingTypes)
+            {
+                // Najdi vsetky budovy daneho typu
+                // Iterovat cez vsetky a zistovat najkratsiu vzdialenost
+                // (ak je menej ako 15 minut, rovno skoncit, ak je vzdusnou ciarou viac ako 30 tak tiez koniec)
+                // pre najkratsiu vzdialenost (sekundy) zistit multiplier cez GetMultiplier
+                // zatial bez weight
+            }
+
+            return TotalScore / TotalWeight;
+        }
     }
 }

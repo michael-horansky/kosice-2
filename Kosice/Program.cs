@@ -28,5 +28,4 @@ class program
         Console.ReadLine();
     }
 
-    
 }
