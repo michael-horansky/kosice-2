@@ -56,8 +56,8 @@ public class Road
 
     public float PhysicalLength(Dictionary<int, Intersection> intersections)
     {
-        return intersections[this.FromId].DistanceToOtherLocation(
-            intersections[this.ToId]
+        return intersections[this.Begin].DistanceToOtherLocation(
+            intersections[this.End]
         );
 
     }

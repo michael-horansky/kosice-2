@@ -112,9 +112,9 @@ class program
             float EndDistanceToRoad = EndDistancesToNearestRoad.Item2;
             float EndRoadOffset = EndDistancesToNearestRoad.Item3;
 
-            List<Intersection> EndRoadIntersections = new List<Intersection>() { intersections[EndNearestRoad.FromId], intersections[EndNearestRoad.ToId] };
-            float DistanceFromFirstStartIntersection = this.ShortestPathBetweenTwoIntersections(intersections[StartNearestRoad.FromId], EndRoadIntersections, ModeOfTransportation);
-            float DistanceFromSecondStartIntersection = this.ShortestPathBetweenTwoIntersections(intersections[StartNearestRoad.ToId], EndRoadIntersections, ModeOfTransportation);
+            List<Intersection> EndRoadIntersections = new List<Intersection>() { intersections[EndNearestRoad.Begin], intersections[EndNearestRoad.End] };
+            float DistanceFromFirstStartIntersection = this.ShortestPathBetweenTwoIntersections(intersections[StartNearestRoad.Begin], EndRoadIntersections, ModeOfTransportation);
+            float DistanceFromSecondStartIntersection = this.ShortestPathBetweenTwoIntersections(intersections[StartNearestRoad.End], EndRoadIntersections, ModeOfTransportation);
 
             float WalkingPart = (StartDistanceToRoad + EndDistanceToRoad) / DefaultTransportationSpeeds["walk"];
 
