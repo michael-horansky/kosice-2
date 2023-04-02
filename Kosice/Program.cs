@@ -1,6 +1,8 @@
-﻿using Kosice.DataLoading.DataContext;
+﻿using System.Collections.Generic;
+using Kosice.DataLoading.DataContext;
 using Kosice.DataLoading.Factory;
 using Kosice.Model;
+using Kosice.Utils;
 using Kosice.Model.Enums;
 
 namespace Kosice
@@ -30,5 +32,30 @@ namespace Kosice
         {
             return DataContext.Buildings.ToList();
         }
+    }
+
+    public class Computing
+    {
+
+        Distance distance { get; set; }
+        Dictionary<string, float> DefaultTransportationSpeeds { get; } = new Dictionary<string, float> {
+            {"walk",1}, {"bike",6}, {"car",10}
+        };
+
+        public Computing(Dictionary<int, Intersection> intersections)
+        {
+            this.distance = new Distance(intersections);
+        }
+
+        public float ShortestPathBetweenTwoIntersections( Intersection StartIntersection, List<Intersection> EndIntersections, string ModeOfTtransportation)
+        {
+            float length = Math.Min(
+                this.distance.GetShortestPathWeight(StartIntersection, EndIntersections[0]),
+                this.distance.GetShortestPathWeight(StartIntersection, EndIntersections[1])
+                );
+
+            return length / DefaultTransportationSpeeds[ModeOfTtransportation];
+        }
+
     }
 }
