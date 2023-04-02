@@ -10,7 +10,7 @@ namespace Kosice.DataLoading.DataImporter
     {
         #region csv_file_paths
 
-        private static readonly string DataPath = Path.GetFullPath(@"../../../../../importData/");
+        private static readonly string DataPath = Path.GetFullPath(@"../../../../importData/");
 
         private static readonly string RoadsCsvFilePath = DataPath + "roads.csv";
 
@@ -56,11 +56,12 @@ namespace Kosice.DataLoading.DataImporter
             var config = new CsvConfiguration(CultureInfo.InvariantCulture)
             {
                 HasHeaderRecord = true,
-                Delimiter = ";"
+                Delimiter = ";",
+                HeaderValidated = null
             };
 
             using var csv = new CsvReader(reader, config);
-            return csv.GetRecords<T>().ToList(); ;
+            return csv.GetRecords<T>().ToList();
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Kosice.DataLoading.DataContext;
 using Kosice.DataLoading.Factory;
 using Kosice.Model;
@@ -6,34 +6,26 @@ using Kosice.Utils;
 using Kosice.Model.Enums;
 using System;
 using System.Collections;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Kosice;
 
-namespace Kosice
+class program
 {
-    public class Queries
+    static void Main()
     {
-        private IDataContext? _dataContext;
-        public IDataContext DataContext => _dataContext ??= new DataContextFactory().CreateDataContext();
-
-        /// <summary>
-        /// Ukážkové query na pripomenutie základnej LINQ syntaxe a operátorov. Výsledky nie je nutné vracať
-        /// pomocou jedného príkazu, pri zložitejších queries je vhodné si vytvoriť pomocné premenné cez `var`.
-        /// Toto query nie je súčasťou hodnotenia.
-        /// </summary>
-        /// <returns>The query result</returns>
-        public List<Road> getRoads()
-        {
-            return DataContext.Roads.ToList();
-        }
-
-        public List<Intersection> GetIntersections()
-        {
-            return DataContext.Intersections.ToList();
-        }
-
-        public List<Building> GetBuildings()
-        {
-            return DataContext.Buildings.ToList();
-        }
+        RoadManager roadManager = new();
+        //foreach (var road in roadManager.GetRoads())
+        //{
+        //    Console.WriteLine(road);
+        //}
+        Console.WriteLine(roadManager.GetRoads().Count);
+        roadManager.AddRoad(4846566, 46);
+        Console.WriteLine(roadManager.GetRoads().Count);
+        roadManager.RemoveIntersection(4846566);
+        Console.WriteLine(roadManager.GetRoads().Count);
+        Console.ReadLine();
     }
 
     public class Computing
@@ -55,7 +47,7 @@ namespace Kosice
             this.roads = roads;
         }
 
-        public float ShortestPathBetweenTwoIntersections( Intersection StartIntersection, List<Intersection> EndIntersections, string ModeOfTtransportation)
+        public float ShortestPathBetweenTwoIntersections(Intersection StartIntersection, List<Intersection> EndIntersections, string ModeOfTtransportation)
         {
             float length = Math.Min(
                 this.distance.GetShortestPathWeight(StartIntersection, EndIntersections[0]),
@@ -70,12 +62,12 @@ namespace Kosice
             List<Road> InitList = new List<Road>(list1);
             List<Road> FinalList = new List<Road>();
 
-            for (int i = 0; i < N; i++)
+            for (int i = 0; i < N; i++)
             {
                 float Max1 = EvalFunction(InitList[0]);
                 int Index1 = 0;
 
-                for (int j = 1; j < InitList.Count(); j++)
+                for (int j = 1; j < InitList.Count(); j++)
                 {
                     if (EvalFunction(InitList[j]) > Max1)
                     {

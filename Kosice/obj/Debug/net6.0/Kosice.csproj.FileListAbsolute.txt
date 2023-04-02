@@ -1,0 +1,17 @@
+C:\Users\swisi\source\repos\kosice-2\Kosice\bin\Debug\net6.0\Kosice.exe
+C:\Users\swisi\source\repos\kosice-2\Kosice\bin\Debug\net6.0\Kosice.deps.json
+C:\Users\swisi\source\repos\kosice-2\Kosice\bin\Debug\net6.0\Kosice.runtimeconfig.json
+C:\Users\swisi\source\repos\kosice-2\Kosice\bin\Debug\net6.0\Kosice.dll
+C:\Users\swisi\source\repos\kosice-2\Kosice\bin\Debug\net6.0\Kosice.pdb
+C:\Users\swisi\source\repos\kosice-2\Kosice\bin\Debug\net6.0\CsvHelper.dll
+C:\Users\swisi\source\repos\kosice-2\Kosice\obj\Debug\net6.0\Kosice.csproj.AssemblyReference.cache
+C:\Users\swisi\source\repos\kosice-2\Kosice\obj\Debug\net6.0\Kosice.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\swisi\source\repos\kosice-2\Kosice\obj\Debug\net6.0\Kosice.AssemblyInfoInputs.cache
+C:\Users\swisi\source\repos\kosice-2\Kosice\obj\Debug\net6.0\Kosice.AssemblyInfo.cs
+C:\Users\swisi\source\repos\kosice-2\Kosice\obj\Debug\net6.0\Kosice.csproj.CoreCompileInputs.cache
+C:\Users\swisi\source\repos\kosice-2\Kosice\obj\Debug\net6.0\Kosice.csproj.CopyComplete
+C:\Users\swisi\source\repos\kosice-2\Kosice\obj\Debug\net6.0\Kosice.dll
+C:\Users\swisi\source\repos\kosice-2\Kosice\obj\Debug\net6.0\refint\Kosice.dll
+C:\Users\swisi\source\repos\kosice-2\Kosice\obj\Debug\net6.0\Kosice.pdb
+C:\Users\swisi\source\repos\kosice-2\Kosice\obj\Debug\net6.0\Kosice.genruntimeconfig.cache
+C:\Users\swisi\source\repos\kosice-2\Kosice\obj\Debug\net6.0\ref\Kosice.dll
