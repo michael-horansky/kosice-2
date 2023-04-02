@@ -101,7 +101,6 @@ class CityModel:
     # ------------------------ path-finding functions ------------------------------
 
     def find_distance_to_nearest_road(self, start_location):
-        print("shrek povedal cibula")
         # returns a tuple (nearest_road, distance to nearest road, distance along the road from its first connected intersection)
         # N_closest_intersections_checked = 3
         # closest_intersections = N_max_elements(self.intersections, N_closest_intersections_checked, eval_function = lambda x: )
@@ -369,17 +368,20 @@ class CityModel:
             if service == "UNCATEGORIZED":
                 continue
             if service not in self.buildings_by_type.keys():
-                print(f"We don't recognize {service}")
+                print(f"  We don't recognize {service}")
                 continue
             if len(self.buildings_by_type[service]) == 0:
-                print(f"We don't have any facility providing {service}")
+                print(
+                    f"  We don't have any facility providing {service} in close proximity"
+                )
                 continue
-            print(f"Looking up the service {service}...")
+            print(f"  Looking up the service {service}...")
             min_dist = self.find_path_between_two_locations(
                 start_location,
                 self.buildings_by_type[service][0].location,
                 mode_of_transportation,
             )
+            min_location = self.buildings_by_type[service][0].location
             if len(self.buildings_by_type[service]) > 1:
                 for building_i in range(1, len(self.buildings_by_type[service])):
                     if (
@@ -399,7 +401,18 @@ class CityModel:
                     )
                     if cur_dist < min_dist:
                         min_dist = cur_dist
-            total_score += getMultiplier(seconds=min_dist) * weight
+                        min_location = self.buildings_by_type[service][
+                            building_i
+                        ].location
+            if min_dist > 1e10:
+                print(
+                    f"  We don't have any facility providing {service} in close proximity"
+                )
+                continue
+            total_score += min_dist * weight
             total_weight += weight
+            print(
+                f"    Closest facility found at lat {min_location.lat}, lon {min_location.lon}"
+            )
         return total_score / total_weight
 
