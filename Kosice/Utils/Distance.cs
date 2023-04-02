@@ -7,12 +7,12 @@ namespace Kosice.Utils
 
     public class Distance
     {
-        private AdjacencyGraph<string, TaggedEdge<string, double>> G { get; }
+        private AdjacencyGraph<string, TaggedEdge<string, float>> G { get; }
         private Dictionary<int, Intersection> intersections { get; set; }
 
         public Distance(Dictionary<int, Intersection> intersections)
         {
-            this.G = new AdjacencyGraph<string, TaggedEdge<string, double>>();
+            this.G = new AdjacencyGraph<string, TaggedEdge<string, float>>();
             this.intersections = intersections;
         }
 
@@ -23,7 +23,7 @@ namespace Kosice.Utils
 
         public void addRoad(Road road)
         {
-            G.AddEdge(new TaggedEdge<string, double>(
+            G.AddEdge(new TaggedEdge<string, float>(
                 this.intersections[road.Begin].Id.ToString(),
                 this.intersections[road.End].Id.ToString(),
                 road.PhysicalLength(this.intersections)
@@ -33,7 +33,7 @@ namespace Kosice.Utils
 
         public float GetShortestPathWeight(Intersection int1, Intersection int2)
         {
-            var algorithm = new DijkstraShortestPathAlgorithm<string, TaggedEdge<string, double>>(this.G, e => e.Tag);
+            var algorithm = new DijkstraShortestPathAlgorithm<string, TaggedEdge<string, float>>(this.G, e => e.Tag);
             algorithm.Compute(int1.Id.ToString());
 
             double shortestPathWeight;

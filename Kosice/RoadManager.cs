@@ -1,7 +1,7 @@
 ﻿using Kosice.DataLoading.DataContext;
 using Kosice.DataLoading.Factory;
 using Kosice.Model;
-using Kosice.Model.Enums;
+using Kosice.Utils;
 using CsvHelper;
 using System.Globalization;
 using CsvHelper.Configuration;
@@ -15,13 +15,26 @@ namespace Kosice
         public int highestId;
         private string importDataPath;
         private List<Road> roads = new List<Road>();
-        private List<Intersection> intersections = new List<Intersection>();
+        private Dictionary<int, Intersection> intersections = new Dictionary<int, Intersection>();
         private CsvConfiguration config = new CsvConfiguration(CultureInfo.InvariantCulture)
         {
             HasHeaderRecord = true,
             Delimiter = ";"
         };
-            
+
+        public EventHandler<ObjectOnCoordinatesEventArgs> ObjectAdded;
+
+        protected virtual void OnObjectAdded(ObjectOnCoordinates objectOnCoordinates)
+        {
+            if (ObjectAdded != null)
+            {
+                var args = new ObjectOnCoordinatesEventArgs(objectOnCoordinates);
+                ObjectAdded(this, args);
+            }
+        }
+
+
+
         public RoadManager()
         {
             highestId = DataContext.Intersections
@@ -42,17 +55,17 @@ namespace Kosice
             return newData.Roads.ToList();
         }
 
-        public List<Intersection> GetIntersections()
+        public Dictionary<int,Intersection> GetIntersections()
         {
             var newData = new DataContextFactory().CreateDataContext();
 
-            return newData.Intersections.ToList();
+            return newData.Intersections.ToDictionary(x => x.Id, y => y);
         }
 
         public void AddIntersection(float x, float y)
         {
             var newIntersection = new Intersection(highestId++, x, y);
-            intersections.Add(newIntersection);
+            intersections.Add(newIntersection.Id, newIntersection);
 
             using (var writer = new StreamWriter(importDataPath + "intersections.csv"))
             using (var csv = new CsvWriter(writer, config))
@@ -74,9 +87,10 @@ namespace Kosice
         }
         public bool RemoveIntersection(int id)
         {
-            if (!intersections.Any(x => x.Id == id))
+            if (!intersections.Any(x => x.Key == id))
             { return false; }
-            intersections = intersections.Where(x => x.Id != id).ToList();
+            intersections = intersections.Where(x => x.Key != id).ToDictionary(a=>a.Key, b => b.Value);
+
             roads = roads.Where(x => x.Begin == id || x.End == id).ToList();
             using (var writer = new StreamWriter(importDataPath + "intersections.csv"))
             using (var csv = new CsvWriter(writer, config))

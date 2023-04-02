@@ -5,45 +5,25 @@
       "CsvHelper/30.0.1": {
         "type": "package",
         "compile": {
-          "lib/net6.0/CsvHelper.dll": {
-            "related": ".xml"
-          }
+          "lib/net6.0/CsvHelper.dll": {}
         },
         "runtime": {
-          "lib/net6.0/CsvHelper.dll": {
-            "related": ".xml"
-          }
+          "lib/net6.0/CsvHelper.dll": {}
         }
       },
       "QuickGraph/3.6.61119.7": {
         "type": "package",
         "compile": {
-          "lib/net4/QuickGraph.Data.dll": {
-            "related": ".XML"
-          },
-          "lib/net4/QuickGraph.Graphviz.dll": {
-            "related": ".XML"
-          },
-          "lib/net4/QuickGraph.Serialization.dll": {
-            "related": ".XML"
-          },
-          "lib/net4/QuickGraph.dll": {
-            "related": ".Data.XML;.Graphviz.XML;.Serialization.XML;.XML"
-          }
+          "lib/net4/QuickGraph.Data.dll": {},
+          "lib/net4/QuickGraph.Graphviz.dll": {},
+          "lib/net4/QuickGraph.Serialization.dll": {},
+          "lib/net4/QuickGraph.dll": {}
         },
         "runtime": {
-          "lib/net4/QuickGraph.Data.dll": {
-            "related": ".XML"
-          },
-          "lib/net4/QuickGraph.Graphviz.dll": {
-            "related": ".XML"
-          },
-          "lib/net4/QuickGraph.Serialization.dll": {
-            "related": ".XML"
-          },
-          "lib/net4/QuickGraph.dll": {
-            "related": ".Data.XML;.Graphviz.XML;.Serialization.XML;.XML"
-          }
+          "lib/net4/QuickGraph.Data.dll": {},
+          "lib/net4/QuickGraph.Graphviz.dll": {},
+          "lib/net4/QuickGraph.Serialization.dll": {},
+          "lib/net4/QuickGraph.dll": {}
         }
       }
     }
@@ -104,24 +84,31 @@
     ]
   },
   "packageFolders": {
-    "/Users/erehulka/.nuget/packages/": {}
+    "C:\\Users\\swisi\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/erehulka/Desktop/HK2023/kosice-2/Kosice/Kosice.csproj",
+      "projectUniqueName": "C:\\Users\\swisi\\source\\repos\\kosice-2\\Kosice\\Kosice.csproj",
       "projectName": "Kosice",
-      "projectPath": "/Users/erehulka/Desktop/HK2023/kosice-2/Kosice/Kosice.csproj",
-      "packagesPath": "/Users/erehulka/.nuget/packages/",
-      "outputPath": "/Users/erehulka/Desktop/HK2023/kosice-2/Kosice/obj/",
+      "projectPath": "C:\\Users\\swisi\\source\\repos\\kosice-2\\Kosice\\Kosice.csproj",
+      "packagesPath": "C:\\Users\\swisi\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\swisi\\source\\repos\\kosice-2\\Kosice\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "/Users/erehulka/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\swisi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -155,8 +142,7 @@
           "net47",
           "net471",
           "net472",
-          "net48",
-          "net481"
+          "net48"
         ],
         "assetTargetFallback": true,
         "warn": true,
@@ -165,7 +151,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.202/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
       }
     }
   },
@@ -174,7 +160,7 @@
       "code": "NU1701",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Package 'QuickGraph 3.6.61119.7' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
+      "message": "Package 'QuickGraph 3.6.61119.7' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
       "libraryId": "QuickGraph",
       "targetGraphs": [
         "net6.0"
