@@ -1,31 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\swisi\\source\\repos\\kosice-2\\Kosice\\Kosice.csproj": {}
+    "/Users/erehulka/Desktop/HK2023/kosice-2/Kosice/Kosice.csproj": {}
   },
   "projects": {
-    "C:\\Users\\swisi\\source\\repos\\kosice-2\\Kosice\\Kosice.csproj": {
+    "/Users/erehulka/Desktop/HK2023/kosice-2/Kosice/Kosice.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\swisi\\source\\repos\\kosice-2\\Kosice\\Kosice.csproj",
+        "projectUniqueName": "/Users/erehulka/Desktop/HK2023/kosice-2/Kosice/Kosice.csproj",
         "projectName": "Kosice",
-        "projectPath": "C:\\Users\\swisi\\source\\repos\\kosice-2\\Kosice\\Kosice.csproj",
-        "packagesPath": "C:\\Users\\swisi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\swisi\\source\\repos\\kosice-2\\Kosice\\obj\\",
+        "projectPath": "/Users/erehulka/Desktop/HK2023/kosice-2/Kosice/Kosice.csproj",
+        "packagesPath": "/Users/erehulka/.nuget/packages/",
+        "outputPath": "/Users/erehulka/Desktop/HK2023/kosice-2/Kosice/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\swisi\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/erehulka/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -47,6 +41,10 @@
             "CsvHelper": {
               "target": "Package",
               "version": "[30.0.1, )"
+            },
+            "QuickGraph": {
+              "target": "Package",
+              "version": "[3.6.61119.7, )"
             }
           },
           "imports": [
@@ -55,7 +53,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -64,7 +63,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.202/RuntimeIdentifierGraph.json"
         }
       }
     }

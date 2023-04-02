@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="CsvHelper" Version="30.0.1" />
+    <PackageReference Include="QuickGraph" Version="3.6.61119.7" />
   </ItemGroup>
 
 </Project>

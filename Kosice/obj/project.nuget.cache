@@ -1,10 +1,22 @@
 {
   "version": 2,
-  "dgSpecHash": "2hLPmh4demZ2v/RPBhPH541l2CQgmWssNtbf2OvDOnzm4rT3TBdJ+ubxoC8xa23B50i+bAjgxmKtkkhuLQBdPg==",
+  "dgSpecHash": "Zsg+3M5ch9eUNDcBqB3p2UDGSU5hF3Wp6GQuQAS5DBgCtM6PW0XoF0w49pNX/qmrX/1k2FFroVK7w3EgL6gUeA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\swisi\\source\\repos\\kosice-2\\Kosice\\Kosice.csproj",
+  "projectFilePath": "/Users/erehulka/Desktop/HK2023/kosice-2/Kosice/Kosice.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\swisi\\.nuget\\packages\\csvhelper\\30.0.1\\csvhelper.30.0.1.nupkg.sha512"
+    "/Users/erehulka/.nuget/packages/csvhelper/30.0.1/csvhelper.30.0.1.nupkg.sha512",
+    "/Users/erehulka/.nuget/packages/quickgraph/3.6.61119.7/quickgraph.3.6.61119.7.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'QuickGraph 3.6.61119.7' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
+      "libraryId": "QuickGraph",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    }
+  ]
 }

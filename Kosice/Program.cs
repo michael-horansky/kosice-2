@@ -31,4 +31,9 @@ namespace Kosice
             return DataContext.Buildings.ToList();
         }
     }
+
+    public class Computing
+    {
+
+    }
 }
