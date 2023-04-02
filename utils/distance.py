@@ -28,5 +28,8 @@ class Distance:
         self, intersectionOne: Intersection, intersectionTwo: Intersection
     ) -> float:
         #print(nx.dijkstra_path(self.g, intersectionOne.id, intersectionTwo.id))
-        return nx.dijkstra_path_length(self.g, intersectionOne.id, intersectionTwo.id)
+        try:
+            return nx.dijkstra_path_length(self.g, intersectionOne.id, intersectionTwo.id)
+        except nx.exception.NetworkXNoPath:
+            return(9e20)
 
