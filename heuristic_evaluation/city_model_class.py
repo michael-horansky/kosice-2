@@ -101,7 +101,7 @@ class CityModel:
     # ------------------------ path-finding functions ------------------------------
 
     def find_distance_to_nearest_road(self, start_location):
-        print("si sa ojebal")
+        print("shrek povedal cibula")
         # returns a tuple (nearest_road, distance to nearest road, distance along the road from its first connected intersection)
         # N_closest_intersections_checked = 3
         # closest_intersections = N_max_elements(self.intersections, N_closest_intersections_checked, eval_function = lambda x: )
@@ -374,6 +374,7 @@ class CityModel:
             if len(self.buildings_by_type[service]) == 0:
                 print(f"We don't have any facility providing {service}")
                 continue
+            print(f"Looking up the service {service}...")
             min_dist = self.find_path_between_two_locations(
                 start_location,
                 self.buildings_by_type[service][0].location,

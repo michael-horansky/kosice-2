@@ -27,6 +27,6 @@ class Distance:
     def shortestDistanceBetweenTwoIntersections(
         self, intersectionOne: Intersection, intersectionTwo: Intersection
     ) -> float:
-        print(nx.dijkstra_path(self.g, intersectionOne.id, intersectionTwo.id))
+        #print(nx.dijkstra_path(self.g, intersectionOne.id, intersectionTwo.id))
         return nx.dijkstra_path_length(self.g, intersectionOne.id, intersectionTwo.id)
 
