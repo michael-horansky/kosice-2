@@ -12,6 +12,8 @@ cityModel: CityModel = CityModel()
 print("vytvoril som city model")
 
 buildings: List[Building] = importBuildings(inputFile="POI.csv")
+for building in buildings:
+    cityModel.add_building(building)
 
 print("mame buildings")
 
@@ -34,8 +36,8 @@ loc2 = Location(lat=48.7497041, lon=21.2825586)
 print("idem na to drz mi palce")
 start = time()
 print(
-    cityModel.find_path_between_two_locations(
-        start_location=loc1, end_location=loc2, mode_of_transportation="walk"
+    cityModel.find_score_of_location(
+        start_location=loc1, mode_of_transportation="walk"
     )
 )
 end = time() - start
