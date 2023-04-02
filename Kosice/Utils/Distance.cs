@@ -31,7 +31,7 @@ namespace Kosice.Utils
             );
         }
 
-        public double GetShortestPathWeight(Intersection int1, Intersection int2)
+        public float GetShortestPathWeight(Intersection int1, Intersection int2)
         {
             var algorithm = new DijkstraShortestPathAlgorithm<string, TaggedEdge<string, double>>(this.G, e => e.Tag);
             algorithm.Compute(int1.Id.ToString());
@@ -39,12 +39,12 @@ namespace Kosice.Utils
             double shortestPathWeight;
             if (algorithm.TryGetDistance(int2.Id.ToString(), out shortestPathWeight))
             {
-                return shortestPathWeight;
+                return (float) shortestPathWeight;
             }
             else
             {
                 // There's no path from int1 to int2
-                return double.PositiveInfinity;
+                return float.PositiveInfinity;
             }
         }
     }
