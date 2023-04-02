@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Kosice.Model;
 
 namespace Kosice.Model;
@@ -50,6 +51,13 @@ public class Road
 
     public override int GetHashCode()
     {
-        return FromId.GetHashCode()^ToId.GetHashCode();
+        return FromId.GetHashCode() ^ ToId.GetHashCode();
+    }
+
+    public float PhysicalLength(Dictionary<int, Intersection> intersections)
+    {
+        return intersections[this.FromId].DistanceToOtherLocation(
+            intersections[this.ToId]
+        );
     }
 }
