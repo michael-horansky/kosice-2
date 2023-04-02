@@ -24,8 +24,8 @@ namespace Kosice.Utils
         public void addRoad(Road road)
         {
             G.AddEdge(new TaggedEdge<string, double>(
-                this.intersections[road.FromId].Id.ToString(),
-                this.intersections[road.ToId].Id.ToString(),
+                this.intersections[road.Begin].Id.ToString(),
+                this.intersections[road.End].Id.ToString(),
                 road.PhysicalLength(this.intersections)
                 )
             );
@@ -39,7 +39,7 @@ namespace Kosice.Utils
             double shortestPathWeight;
             if (algorithm.TryGetDistance(int2.Id.ToString(), out shortestPathWeight))
             {
-                return (float) shortestPathWeight;
+                return (float)shortestPathWeight;
             }
             else
             {

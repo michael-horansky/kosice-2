@@ -12,9 +12,9 @@ public class Road
     /// <summary>
     /// Unique identifier
     /// </summary>
-    public int FromId { get; set; }
+    public int Begin { get; set; }
 
-    public int ToId { get; set; }
+    public int End { get; set; }
     public Road()
     {
 
@@ -22,18 +22,18 @@ public class Road
 
     public Road(int fromId, int toId)
     {
-        FromId = fromId;
-        ToId = toId;
+        Begin = fromId;
+        End = toId;
     }
 
     public override string ToString()
     {
-        return $"Road between {FromId} and {ToId}";
+        return $"Road between {Begin} and {End}";
     }
 
     protected bool Equals(Road other)
     {
-        return FromId == other.FromId && ToId == other.ToId;
+        return Begin == other.Begin && End == other.End;
     }
 
     public override bool Equals(object? obj)
@@ -51,13 +51,14 @@ public class Road
 
     public override int GetHashCode()
     {
-        return FromId.GetHashCode() ^ ToId.GetHashCode();
+        return Begin.GetHashCode() ^ End.GetHashCode();
     }
 
     public float PhysicalLength(Dictionary<int, Intersection> intersections)
     {
-        return intersections[this.FromId].DistanceToOtherLocation(
-            intersections[this.ToId]
+        return intersections[this.Begin].DistanceToOtherLocation(
+            intersections[this.End]
         );
+
     }
 }

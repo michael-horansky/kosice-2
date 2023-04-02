@@ -20,12 +20,12 @@ namespace Kosice.Model
 
         public Building() { }
 
-        public Building(int id, string name,float lon, float lat, BuildingType building)
+        public Building(int id, string name, BuildingType building, float x, float y)
         {
             Id = id;
             Name = name;
-            X = lon;
-            Y = lat;
+            X = x;
+            Y = y;
             BuildType = building;
         }
 

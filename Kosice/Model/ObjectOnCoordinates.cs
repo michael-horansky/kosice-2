@@ -103,13 +103,13 @@ namespace Kosice.Model
         public Tuple<float, float> DistanceToRoad(Road road, Dictionary<int, Intersection> intersections)
         {
 
-            Tuple<float, float, bool> DistanceFromGreatArc = this.DistanceFromGreatArc(intersections[road.FromId], intersections[road.ToId]);
+            Tuple<float, float, bool> DistanceFromGreatArc = this.DistanceFromGreatArc(intersections[road.Begin], intersections[road.End]);
             float DistanceFromRoadArc = DistanceFromGreatArc.Item1;
             float DistanceAlongRoad = DistanceFromGreatArc.Item2;
             bool UseArc = DistanceFromGreatArc.Item3;
 
-            float DistanceFromFirstIntersection = this.DistanceToOtherLocation(intersections[road.FromId]);
-            float DistanceFromSecondIntersection = this.DistanceToOtherLocation(intersections[road.ToId]);
+            float DistanceFromFirstIntersection = this.DistanceToOtherLocation(intersections[road.Begin]);
+            float DistanceFromSecondIntersection = this.DistanceToOtherLocation(intersections[road.End]);
 
             if (UseArc)
             {

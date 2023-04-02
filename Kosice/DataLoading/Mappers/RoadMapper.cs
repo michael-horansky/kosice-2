@@ -7,8 +7,8 @@ namespace Kosice.DataLoading.Mappers
     {
         public RoadMapper()
         {
-            Map(m => m.FromId);
-            Map(m => m.ToId);
+            Map(m => m.Begin);
+            Map(m => m.End);
         }
     }
 }
