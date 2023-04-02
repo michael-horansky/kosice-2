@@ -54,6 +54,13 @@ def importKosiceRoads(
                 newPoint.id = idIntersection
                 idIntersection += 1
                 maxId += 1
+
+                if (
+                    begin.location.distance(newPoint.location) < 100
+                    and i != totalPoints - 3
+                ):
+                    continue
+
                 intersections[maxId] = newPoint
 
                 addRoadToRoads(begin, newPoint, roads, cityModel)
